@@ -20,7 +20,7 @@ Demonstrando como aplicar ferramentas de segurança Open Source em um pipeline <
 
 ![Resultado da pipeline do LAB](https://github.com/crypto-br/DevOpsDays_Goiania/blob/main/assets/resultpipeline.jpg)
 
-* [Apresentação em PDF]()
+* [Apresentação em PDF](https://github.com/crypto-br/DevOpsDays_Goiania/blob/main/assets/DevOpsDays_Goiania.pdf)
 
 ## Links úteis
 * [Configurando o Github dependabot](https://docs.github.com/pt/code-security/dependabot/dependabot-alerts/configuring-dependabot-alerts)
