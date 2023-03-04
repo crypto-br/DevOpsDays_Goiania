@@ -1,0 +1,82 @@
+name: SecurityPipe
+on:
+  workflow_dispatch:
+  
+jobs:
+  scanImage:
+    name: Scaneando imagem Docker - Trivy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Rodando a imagem Docker
+        run: |
+          docker run openjdk
+          
+      - name: Rodando o Trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'openjdk:latest'
+          format: 'table'
+          exit-code: '0'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITCAL,HIGH'
+          
+  build:
+    runs-on: ubuntu-latest
+    needs: scanImage
+    steps:
+    - name: Rodando o Build
+      run: echo Build deu bom
+    
+  deploy-dev:
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+    needs: build
+    steps:
+      - name: Rodando deploy DEV
+        run: echo Deploy DEV deu bom
+  
+  deploy-sast:
+    name: Horusec SAST
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Rodando o Horusec
+        run: |
+          git clone https://github.com/crypto-br/DevOpsDays_Goiania.git
+          cd DevOpsDays_Goiania/
+          curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/master/deployments/scripts/install.sh | bash -s latest
+          horusec start -p="./" 
+  
+  deploy-hml:
+    runs-on: ubuntu-latest
+    environment:
+      name: hml
+      url: 'https://google.com.br'
+    needs: [deploy-dev, deploy-sast]
+    steps:
+      - name: Rodando deploy HML
+        run: echo Deploy HML deu bom
+ 
+  deploy-dast:
+    name: OWASP ZAP 
+    runs-on: ubuntu-latest
+    needs: deploy-hml
+    steps:
+    - name: Rodando o OWASP ZAP
+      uses: zaproxy/action-baseline@v0.4.0
+      with:
+        target: 'https://google.com.br'
+ 
+  deploy-prd:
+    runs-on: ubuntu-latest
+    environment:
+      name: prd
+    needs: deploy-hml
+    steps:
+      - name: Rodando deploy PRD
+        run: echo Deploy PRD deu bom
