@@ -68,7 +68,7 @@ jobs:
     needs: deploy-hml
     steps:
     - name: pre-owasp
-      run: mkdir /zap/wrk
+      run: mkdir -p /zap/wrk
     - name: Rodando o OWASP ZAP
       uses: zaproxy/action-baseline@v0.7.0
       with:
