@@ -68,7 +68,7 @@ jobs:
     needs: deploy-hml
     steps:
     - name: Rodando o OWASP ZAP
-      uses: zaproxy/action-baseline@v0.6.1
+      uses: zaproxy/action-baseline@v0.7.0
       with:
         target: 'https://google.com.br'
  
