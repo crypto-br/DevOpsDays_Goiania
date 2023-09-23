@@ -42,6 +42,7 @@ jobs:
   deploy-sast:
     name: Horusec SAST
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - name: Rodando o Horusec
         id: run_horusec
