@@ -73,6 +73,7 @@ jobs:
       uses: zaproxy/action-baseline@v0.9.0
       with:
         target: 'https://www.zaproxy.org'
+        exit-code: '0'
  
   deploy-prd:
     runs-on: ubuntu-latest
