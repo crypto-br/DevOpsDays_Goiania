@@ -40,16 +40,14 @@ jobs:
         run: echo Deploy DEV deu bom
   
   deploy-sast:
-    name: Horusec SAST
     runs-on: ubuntu-latest
-    needs: build
+    name: Horusec Scan
     steps:
-      - name: Rodando o Horusec
-        run: |
-          git clone https://github.com/crypto-br/DevOpsDays_Goiania.git
-          cd DevOpsDays_Goiania/
-          curl -fsSL https://raw.githubusercontent.com/ZupIT/horusec/master/deployments/scripts/install.sh | bash -s latest
-          horusec start -p="./" 
+      - name: Run Horusec
+        id: run_horusec
+        uses: fike/horusec-action@v0.1
+        with:
+          arguments: -p="./"
   
   deploy-hml:
     runs-on: ubuntu-latest
