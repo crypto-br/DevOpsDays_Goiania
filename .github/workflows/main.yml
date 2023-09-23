@@ -80,7 +80,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: prd
-    needs: deploy-hml
+    needs: [deploy-hml, deploy-dast]
     steps:
       - name: Rodando deploy PRD
         run: echo Deploy PRD deu bom
