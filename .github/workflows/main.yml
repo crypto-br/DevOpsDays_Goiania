@@ -72,7 +72,7 @@ jobs:
     - name: Rodando o OWASP ZAP
       uses: zaproxy/action-baseline@v0.9.0
       with:
-        target: 'https://google.com.br'
+        target: 'https://www.zaproxy.org'
  
   deploy-prd:
     runs-on: ubuntu-latest
