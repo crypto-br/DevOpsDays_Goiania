@@ -22,7 +22,6 @@ jobs:
           exit-code: '0'
           ignore-unfixed: true
           vuln-type: 'os,library'
-          severity: 'CRITCAL,HIGH'
           
   build:
     runs-on: ubuntu-latest
